@@ -1,0 +1,95 @@
+---
+import DefaultLayout from '../layouts/DefaultLayout.astro';
+import Pagination from '../components/Pagination.astro';
+import Polaroid from '../components/Polaroid.astro';
+
+import { GET } from './api/photos.ts';
+
+const title = 'Photos';
+
+const start = Number(Astro.url.searchParams.get('start') ?? 0);
+const size = Number(Astro.url.searchParams.get('size') ?? 20);
+
+const response = await GET(Astro);
+const photos = await response.json();
+
+const LAZY_LOAD_AFTER = 8;
+---
+
+<DefaultLayout title={title}>
+	<article>
+		<header>
+			<h1>{title}</h1>
+
+			<p>
+				Showing {start + 1} to {start + size} of {photos.length}.
+			</p>
+		</header>
+
+		<ol start={start + 1}>
+			{photos.slice(start, start + size).map((photo, i) => (
+				<li style={{ '--random': Math.random() }}>
+					<a
+						href={`/photos/${photo.id}`}
+						style={{ 'view-transition-name': `photo-${photo.id}` }}
+					>
+						<Polaroid
+							src={photo.thumbnailUrl}
+							caption={photo.title}
+							loading={i > LAZY_LOAD_AFTER ? 'lazy' : 'eager'}
+						/>
+					</a>
+				</li>
+			))}
+		</ol>
+
+		<footer>
+			<Pagination {size} {start} total={photos.length} />
+		</footer>
+	</article>
+</DefaultLayout>
+
+<style>
+	@view-transition {
+		navigation: auto;
+	}
+
+	header {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+		justify-content: space-between;
+
+		> * {
+			margin-block: 0;
+		}
+	}
+
+	:is(ol, li) {
+		all: unset;
+	}
+
+	ol {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, 12rem);
+		justify-content: space-between;
+		gap: 1.5rem;
+		padding: 2rem;
+
+		li {
+			--rotate-polaroid: calc(sin(var(--random, 0) * 360deg) * 4deg);
+
+			/**
+			* Use the css random() function when supported.
+			* @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/random}
+			*/
+			@supports (transform: rotate(random(0deg, 360deg))) {
+				--rotate-polaroid: random(-7deg, 8deg);
+			}
+
+			a {
+				text-decoration: none;
+			}
+		}
+	}
+</style>

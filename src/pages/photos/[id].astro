@@ -1,0 +1,101 @@
+---
+import DefaultLayout from '../../layouts/DefaultLayout.astro';
+import Polaroid from '../../components/Polaroid.astro';
+import { GET } from '../api/photos';
+
+const { id } = Astro.params;
+
+const response = await GET(Astro);
+const photos = await response.json();
+const photo = photos.find((item: { id: number }) => String(item.id) === id);
+
+if (!photo) {
+	return Astro.rewrite('/404');
+}
+---
+
+<DefaultLayout title={photo.title}>
+	<section
+		class="lightbox"
+		style={{ 'view-transition-name': `photo-${photo.id}` }}
+	>
+		<header>
+			<h1>Photo #{photo.id}</h1>
+
+			<a
+				class="btn-close"
+				href="/photos"
+				role="button"
+				aria-label="Return to the Photos"
+			>
+				✕
+			</a>
+		</header>
+
+		<Polaroid class="polaroid--full" caption={photo.title} src={photo.url} />
+	</section>
+</DefaultLayout>
+
+<script>
+	const btn = document.querySelector<HTMLButtonElement>('.btn-close');
+
+	document.body.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape') {
+			btn?.click();
+		}
+	});
+
+	btn?.focus();
+</script>
+
+<style>
+	@view-transition {
+		navigation: auto;
+	}
+
+	.lightbox {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		display: grid;
+		place-content: center;
+
+		margin: 0;
+		padding: 1rem;
+
+		background: rgb(0 0 0 / 0.9);
+
+		z-index: calc(infinity * 1);
+
+		header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1rem;
+
+			h1 {
+				margin: 0;
+
+				color: #fff;
+			}
+		}
+
+		.btn-close {
+			margin-block: 1rem;
+
+			color: inherit;
+
+			background-color: #fff;
+		}
+
+		.polaroid--full {
+			min-inline-size: 40vw;
+
+			&:is(:hover, :focus-visible &) {
+				transform: none;
+			}
+		}
+	}
+</style>

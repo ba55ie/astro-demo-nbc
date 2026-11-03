@@ -1,0 +1,53 @@
+---
+import { getCollection, render } from 'astro:content';
+
+import 'reveal.js/reset.css';
+import 'reveal.js/reveal.css';
+import 'reveal.js/theme/black.css';
+
+const slides = await getCollection('slides');
+
+const renderedSlides = await Promise.all(
+	slides.map(async (slide) => {
+		const { Content } = await render(slide);
+		return { ...slide, Content };
+	}),
+);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Deck with Speaker Notes</title>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				{renderedSlides.map(({ data, Content }) => (
+					<section
+						data-transition={data.transition}
+						data-background={data.background}
+					>
+						<Content />
+					</section>
+				))}
+			</div>
+		</div>
+
+		<script>
+			import Reveal from 'reveal.js';
+			import Markdown from 'reveal.js/plugin/markdown';
+			import Highlight from 'reveal.js/plugin/highlight';
+			import Notes from 'reveal.js/plugin/notes';
+
+			const deck = new Reveal({
+				hash: true,
+				plugins: [Markdown, Highlight, Notes],
+			});
+
+			deck.initialize();
+		</script>
+	</body>
+</html>
