@@ -1,0 +1,107 @@
+---
+import DefaultLayout from '../layouts/DefaultLayout.astro';
+import Paging from '../components/Paging.astro';
+
+import { GET } from './api/photos.ts';
+
+const title = 'Photos';
+
+const start = Number(Astro.url.searchParams.get('start') ?? 0);
+const size = Number(Astro.url.searchParams.get('size') ?? 20);
+
+const response = await GET(Astro);
+const photos = await response.json();
+
+const LAZY_LOAD_AFTER = 8;
+---
+
+<DefaultLayout title={title}>
+	<h1>{title}</h1>
+
+	<ol start={start + 1}>
+		{photos.slice(start, start + size).map((img, i) => (
+			<li style={{ '--random': Math.random() }}>
+				<a href={`/photos/${img.id}`}>
+					<img
+						src={img.thumbnailUrl}
+						alt={img.title}
+						loading={i > LAZY_LOAD_AFTER ? 'lazy' : 'eager'}
+					/>
+
+					<span>{img.title}</span>
+				</a>
+			</li>
+		))}
+	</ol>
+
+	<Paging {size} {start} total={photos.length} />
+</DefaultLayout>
+
+<style>
+	:is(ol, li) {
+		all: unset;
+	}
+
+	ol {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		gap: 1.5rem;
+
+		li {
+			--rotate: calc(sin(var(--random, 0) * 360deg) * 4deg);
+
+			/**
+			* Use the css random() function when supported
+			* @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/random}
+			*/
+			@supports (transform: rotate(random(0deg, 360deg))) {
+				--rotate: random(-7deg, 8deg);
+			}
+
+			&:is(:hover, :focus-within) a {
+				transform: scale(1.05) rotate(0deg);
+				box-shadow:
+					0 10px 20px rgb(0 0 0 / 0.35),
+					0 3px 6px rgb(0 0 0 / 0.2);
+
+				z-index: 1;
+			}
+		}
+
+		a {
+			display: flex;
+			flex-flow: column;
+			inline-size: 14rem;
+			padding: 0.75rem 0.75rem 1rem;
+
+			background-color: #fff;
+			color: #222;
+			text-decoration: none;
+
+			border-radius: 2px;
+			box-shadow:
+				0 4px 10px rgb(0 0 0 / 0.25),
+				0 1px 3px rgb(0 0 0 / 0.15);
+			transform: rotate(var(--rotate, 0deg));
+			transition:
+				transform 0.2s ease,
+				box-shadow 0.2s ease;
+		}
+
+		img {
+			inline-size: 100%;
+			aspect-ratio: 4/3;
+			object-fit: cover;
+			background-color: #eee;
+		}
+
+		span {
+			display: block;
+			margin-block-start: 0.75rem;
+
+			font-size: 0.75rem;
+			text-align: center;
+		}
+	}
+</style>

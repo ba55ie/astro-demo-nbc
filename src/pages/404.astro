@@ -1,0 +1,20 @@
+---
+import { Image } from 'astro:assets';
+
+import DefaultLayout from '../layouts/DefaultLayout.astro';
+import notFound from '../assets/images/404.jpg';
+
+const title = '404 Not found';
+---
+
+<DefaultLayout title={title}>
+	<h1>{title}</h1>
+
+	<p>
+		<a href="/">🡨 Go to the home page</a>
+	</p>
+
+	<div>
+		<Image src={notFound} alt="Ain't got no time for that 404!" />
+	</div>
+</DefaultLayout>

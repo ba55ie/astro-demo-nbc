@@ -1,0 +1,40 @@
+---
+import Navigation from '../components/Navigation.astro';
+
+export type Props = {
+	title: string;
+};
+
+const { title } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+
+		<!-- pico.fluid.classless.min.css -->
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css"
+		/>
+
+		<title>{title} | Int(r)o Astro</title>
+	</head>
+	<body>
+		<header>
+			<h1>Int(r)o Astro 🚀</h1>
+
+			<Navigation />
+		</header>
+
+		<hr />
+
+		<main>
+			<slot />
+		</main>
+	</body>
+</html>

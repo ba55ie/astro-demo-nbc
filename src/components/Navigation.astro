@@ -1,0 +1,39 @@
+---
+const items = [
+	{ title: '🏠 Home', path: '/' },
+	{ title: '📃 Posts', path: '/posts' },
+	{ title: '📷 Photos', path: '/photos' },
+];
+---
+
+<nav aria-label="Main navigation">
+	<ul>
+		{items.map(({ title, path }) => (
+			<li>
+				<a
+					href={path}
+					aria-current={Astro.url.pathname === path ? 'page' : false}
+				>
+					{title}
+				</a>
+			</li>
+		))}
+	</ul>
+</nav>
+
+<style>
+	nav {
+		ul {
+			display: flex;
+			gap: 0.5rem;
+		}
+
+		a {
+			outline-offset: 0.5rem;
+		}
+
+		[aria-current='page'] {
+			background-color: #eee;
+		}
+	}
+</style>
