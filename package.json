@@ -10,11 +10,13 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "server": "node ./dist/server/entry.mjs",
     "format": "prettier --write ."
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "0.4.6",
     "@astrojs/mdx": "8.1.2",
+    "@astrojs/node": "11.1.9",
     "astro": "7.4.5",
     "reveal.js": "6.0.2"
   },
