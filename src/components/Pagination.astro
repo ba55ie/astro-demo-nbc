@@ -1,0 +1,44 @@
+---
+export type Props = {
+	total: number;
+	start?: number;
+	size?: number;
+};
+
+const { total, start = 0, size = 10 } = Astro.props;
+
+const prev = Math.max(0, start - size);
+const next = Math.min(total - size, start + size);
+---
+
+<nav aria-label="Pagination">
+	{start <= 0 ? (
+		<span>🡨 Prev</span>
+	) : (
+		<a
+			href={`${Astro.url.pathname}?start=${prev}&size=${size}`}
+			aria-disabled={start <= 0}
+		>
+			🡨 Prev
+		</a>
+	)}
+
+	{start + size >= total ? (
+		<span>Next 🡪</span>
+	) : (
+		<a
+			href={`${Astro.url.pathname}?start=${next}&size=${size}`}
+			aria-disabled={start + size >= total}
+		>
+			Next 🡪
+		</a>
+	)}
+</nav>
+
+<style>
+	nav {
+		display: flex;
+		place-content: center;
+		gap: 1rem;
+	}
+</style>

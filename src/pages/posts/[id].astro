@@ -19,11 +19,11 @@ if (!post?.id) {
 ---
 
 <DefaultLayout title={post.title}>
-	<section>
+	<article>
 		<header>
-			<a href="/posts">🡨 Return to the Posts</a>
-
 			<h1>{post.title}</h1>
+
+			<a href="/posts">🡨 Return to the Posts</a>
 		</header>
 
 		<p>{post.body}</p>
@@ -41,10 +41,21 @@ if (!post?.id) {
 				</blockquote>
 			))}
 		</aside>
-	</section>
+	</article>
 </DefaultLayout>
 
 <style>
+	header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+
+		> * {
+			margin-block: 0;
+		}
+	}
+
 	:is(p, blockquote) {
 		white-space: pre-line;
 	}

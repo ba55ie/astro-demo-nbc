@@ -1,6 +1,6 @@
 ---
 import DefaultLayout from '../layouts/DefaultLayout.astro';
-import Paging from '../components/Paging.astro';
+import Pagination from '../components/Pagination.astro';
 
 import { GET } from './api/photos.ts';
 
@@ -16,28 +16,50 @@ const LAZY_LOAD_AFTER = 8;
 ---
 
 <DefaultLayout title={title}>
-	<h1>{title}</h1>
+	<article>
+		<header>
+			<h1>{title}</h1>
 
-	<ol start={start + 1}>
-		{photos.slice(start, start + size).map((img, i) => (
-			<li style={{ '--random': Math.random() }}>
-				<a href={`/photos/${img.id}`}>
-					<img
-						src={img.thumbnailUrl}
-						alt={img.title}
-						loading={i > LAZY_LOAD_AFTER ? 'lazy' : 'eager'}
-					/>
+			<p>
+				Showing {start + 1} to {start + size} of {photos.length}.
+			</p>
+		</header>
 
-					<span>{img.title}</span>
-				</a>
-			</li>
-		))}
-	</ol>
+		<ol start={start + 1}>
+			{photos.slice(start, start + size).map((img, i) => (
+				<li style={{ '--random': Math.random() }}>
+					<a href={`/photos/${img.id}`}>
+						<img
+							src={img.thumbnailUrl}
+							alt={img.title}
+							loading={i > LAZY_LOAD_AFTER ? 'lazy' : 'eager'}
+						/>
 
-	<Paging {size} {start} total={photos.length} />
+						<span>{img.title}</span>
+					</a>
+				</li>
+			))}
+		</ol>
+
+		<footer>
+			<Pagination {size} {start} total={photos.length} />
+		</footer>
+	</article>
 </DefaultLayout>
 
 <style>
+	header {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+		justify-content: space-between;
+
+		> * {
+			margin-block: 0;
+			min-inline-size: min-content;
+		}
+	}
+
 	:is(ol, li) {
 		all: unset;
 	}
@@ -47,17 +69,20 @@ const LAZY_LOAD_AFTER = 8;
 		flex-flow: row wrap;
 		justify-content: space-between;
 		gap: 1.5rem;
+		padding: 2rem;
 
 		li {
 			--rotate: calc(sin(var(--random, 0) * 360deg) * 4deg);
 
 			/**
-			* Use the css random() function when supported
+			* Use the css random() function when supported.
 			* @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/random}
 			*/
 			@supports (transform: rotate(random(0deg, 360deg))) {
 				--rotate: random(-7deg, 8deg);
 			}
+
+			inline-size: 12rem;
 
 			&:is(:hover, :focus-within) a {
 				transform: scale(1.05) rotate(0deg);
@@ -72,17 +97,18 @@ const LAZY_LOAD_AFTER = 8;
 		a {
 			display: flex;
 			flex-flow: column;
-			inline-size: 14rem;
+
 			padding: 0.75rem 0.75rem 1rem;
 
-			background-color: #fff;
 			color: #222;
 			text-decoration: none;
+			background-color: #fff;
 
 			border-radius: 2px;
 			box-shadow:
 				0 4px 10px rgb(0 0 0 / 0.25),
 				0 1px 3px rgb(0 0 0 / 0.15);
+
 			transform: rotate(var(--rotate, 0deg));
 			transition:
 				transform 0.2s ease,
@@ -97,7 +123,6 @@ const LAZY_LOAD_AFTER = 8;
 		}
 
 		span {
-			display: block;
 			margin-block-start: 0.75rem;
 
 			font-size: 0.75rem;
