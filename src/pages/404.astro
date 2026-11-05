@@ -1,8 +1,6 @@
 ---
-import { Image } from 'astro:assets';
-
 import DefaultLayout from '../layouts/DefaultLayout.astro';
-import notFound from '../assets/images/404.jpg';
+import notFoundImage from '../assets/images/404.jpg';
 
 const title = '404 Not found';
 ---
@@ -15,6 +13,6 @@ const title = '404 Not found';
 	</p>
 
 	<div>
-		<Image src={notFound} alt="Ain't got no time for that 404!" />
+		<img src={notFoundImage.src} alt="Ain't got no time for that 404!" />
 	</div>
 </DefaultLayout>
