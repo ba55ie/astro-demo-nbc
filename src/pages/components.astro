@@ -1,0 +1,49 @@
+---
+import DefaultLayout from '@/layouts/DefaultLayout.astro';
+
+import VueAlert from '@/components/Alert.vue';
+import ReactCounter from '@/components/counter/Counter.tsx';
+import VueCounter from '@/components/counter/Counter.vue';
+
+const title = 'Components';
+
+const count = 20;
+---
+
+<DefaultLayout title={title}>
+	<article>
+		<header>
+			<h1>{title}</h1>
+			<p>Server-Side Rendered Only (Zero JS)</p>
+		</header>
+
+		<VueAlert>
+			Rendered to static HTML on the server. No JavaScript is sent to the
+			browser, so clicking the buttons has no effect.
+		</VueAlert>
+
+		<div class="grid">
+			<ReactCounter count={count} />
+			<VueCounter count={count} />
+		</div>
+	</article>
+</DefaultLayout>
+
+<style>
+	header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+
+		> * {
+			margin: 0;
+		}
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+		gap: 1.5rem;
+	}
+</style>
