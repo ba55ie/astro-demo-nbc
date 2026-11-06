@@ -1,0 +1,83 @@
+---
+import DefaultLayout from '@/layouts/DefaultLayout.astro';
+
+import VueAlert from '@/components/Alert.vue';
+import ReactCounter from '@/components/counter/Counter.tsx';
+import VueCounter from '@/components/counter/Counter.vue';
+
+const title = 'Components';
+
+const count = 1337;
+const clicks = 0;
+---
+
+<DefaultLayout title={title}>
+	<article>
+		<header>
+			<h2>
+				Hydrated Islands (<code>client:load</code>)
+			</h2>
+			<p>Interactive hydrated Islands</p>
+		</header>
+
+		<VueAlert client:load icon="🚀" timestamp={Date.now()}>
+			Server-rendered HTML hydrated on the client using Astro's Islands
+			architecture.
+		</VueAlert>
+
+		<div class="grid">
+			<ReactCounter client:load count={count} />
+			<VueCounter client:load count={count} />
+		</div>
+
+		<total-clicks clicks={clicks}>
+			<article>
+				<header>
+					<strong>
+						🌐 Web Component (<code>&lt;total-clicks&gt;</code>)
+					</strong>
+				</header>
+
+				<p class="total">
+					<span>Total clicks:</span>
+					<output>{clicks}</output>
+				</p>
+			</article>
+		</total-clicks>
+	</article>
+</DefaultLayout>
+
+<script>
+	import '@/components/counter/TotalClicks';
+</script>
+
+<style>
+	header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+
+		> * {
+			margin: 0;
+		}
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+		gap: 1.5rem;
+	}
+
+	.total {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin: 0;
+
+		output {
+			font-size: 1.5rem;
+			font-weight: bold;
+		}
+	}
+</style>

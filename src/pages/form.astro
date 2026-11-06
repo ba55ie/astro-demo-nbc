@@ -1,0 +1,94 @@
+---
+import { actions, isInputError } from 'astro:actions';
+
+import DefaultLayout from '@/layouts/DefaultLayout.astro';
+
+const title = 'Form + Server Action';
+
+const result = Astro.getActionResult(actions.user);
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+---
+
+<DefaultLayout title={title} transition>
+	{result?.data && !result.error ? (
+		<div class="success">
+			<h1>Success</h1>
+
+			<p>Saved user "{result.data.name}".</p>
+		</div>
+	) : (
+		<form method="POST" autocomplete="off" action={actions.user}>
+			<legend>
+				<h1>{title}</h1>
+			</legend>
+
+			<label>
+				<span>Name</span>
+				<input name="name" required transition:persist />
+
+				{inputErrors.name && (
+					<span class="error">{inputErrors.name.join(',')}</span>
+				)}
+			</label>
+
+			<label>
+				<span>Email</span>
+				<input name="email" type="email" required transition:persist />
+			</label>
+
+			<label>
+				<span>Your age</span>
+				<input name="age" type="number" required transition:persist />
+
+				{inputErrors.age && (
+					<span class="error">{inputErrors.age.join(',')}</span>
+				)}
+			</label>
+
+			<button type="submit">Send</button>
+		</form>
+	)}
+
+	<div slot="sidebar">
+		<h2>React 19</h2>
+		<p>
+			Astro.js <code>Actions</code> also work with React 19's{' '}
+			<a
+				href="https://react.dev/reference/react/useActionState"
+				target="_blank"
+			>
+				useActionState
+			</a>
+			.
+		</p>
+		<p>
+			See the{' '}
+			<a
+				href="https://docs.astro.build/en/guides/integrations-guide/react/#withstate"
+				target="_blank"
+			>
+				<code>@astro/react</code> docs
+			</a>
+			.
+		</p>
+	</div>
+</DefaultLayout>
+
+<style>
+	label:has(:required) {
+		position: relative;
+
+		span:not(.error)::after {
+			content: ' *';
+			color: darkred;
+		}
+	}
+
+	.success {
+		color: darkgreen;
+	}
+
+	.error {
+		color: darkred;
+	}
+</style>

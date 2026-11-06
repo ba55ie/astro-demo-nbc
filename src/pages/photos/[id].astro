@@ -1,13 +1,13 @@
 ---
-import DefaultLayout from '../../layouts/DefaultLayout.astro';
-import Polaroid from '../../components/Polaroid.astro';
-import { GET } from '../api/photos';
+import DefaultLayout from '@/layouts/DefaultLayout.astro';
+import Polaroid from '@/components/Polaroid.astro';
+import { GET } from '@/pages/api/photos.ts';
 
 const { id } = Astro.params;
 
 const response = await GET(Astro);
-const photos = await response.json();
-const photo = photos.find((item: { id: number }) => String(item.id) === id);
+const photos: Photo[] = await response.json();
+const photo = photos.find((item) => String(item.id) === id);
 
 if (!photo) {
 	return Astro.rewrite('/404');
@@ -49,10 +49,6 @@ if (!photo) {
 </script>
 
 <style>
-	@view-transition {
-		navigation: auto;
-	}
-
 	.lightbox {
 		position: fixed;
 		top: 0;

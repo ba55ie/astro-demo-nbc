@@ -1,15 +1,15 @@
 ---
-import DefaultLayout from '../../layouts/DefaultLayout.astro';
-import Pagination from '../../components/Pagination.astro';
+import DefaultLayout from '@/layouts/DefaultLayout.astro';
+import Pagination from '@/components/Pagination.astro';
 
 const title = 'Posts';
 
 const start = Number(Astro.url.searchParams.get('start') ?? 0);
 const size = Number(Astro.url.searchParams.get('size') ?? 10);
 
-const posts = await fetch('https://jsonplaceholder.typicode.com/posts').then(
-	(res) => res.json(),
-);
+const posts: Post[] = await fetch(
+	'https://jsonplaceholder.typicode.com/posts',
+).then((res) => res.json());
 ---
 
 <DefaultLayout title={title}>
