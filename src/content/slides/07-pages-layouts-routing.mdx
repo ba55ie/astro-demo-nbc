@@ -5,30 +5,15 @@ transition: slide
 background: '#0f172a'
 ---
 
-## Pages, Layouts (`<slot />`) & Routing
+## Pages, Layouts & Routing
 
-File-based routing in `src/pages/` + reusable layouts in `src/layouts/`:
-
-```astro
----
-// src/pages/photos/[id].astro — Dynamic Route
-import DefaultLayout from '@/layouts/DefaultLayout.astro';
-const { id } = Astro.params;
-const photo = await getPhoto(id);
-
-if (!photo) return Astro.rewrite('/404');
----
-<DefaultLayout title={photo.title}>
-  <!-- Injected into DefaultLayout's <slot /> -->
-  <h1>Photo #{photo.id}</h1>
-</DefaultLayout>
-```
-
-- Query params via standard `Astro.url.searchParams.get('start')`
-- Dynamic segments via `src/pages/posts/[id].astro` & `Astro.params`
+- **File-Based Routing** — Files in `src/pages/` become routes automatically
+- **Dynamic Routes** — `posts/[id].astro` & `Astro.params`
+- **Layouts** — Reusable page shells using `<slot />`
+- **Server globals** — `Astro.url` & `Astro.rewrite('/404')`
 
 <aside class="notes">
-  - No `react-router` boilerplate needed: files in `src/pages/` automatically become routes (`index.astro`, `posts/index.astro`, `posts/[id].astro`).
-  - Layouts are just `.astro` components that use `<slot />` to render child content.
-  - Notice `Astro.rewrite('/404')` for clean server-side 404 handling!
+  - Show in IDE: - `src/layouts/DefaultLayout.astro` -
+  `src/pages/posts/index.astro` and `src/pages/posts/[id].astro` -
+  `src/pages/photos/[id].astro`
 </aside>

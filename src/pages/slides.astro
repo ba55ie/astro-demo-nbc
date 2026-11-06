@@ -40,13 +40,11 @@ const renderedSlides = await Promise.all(
 
 		<script>
 			import Reveal from 'reveal.js';
-			import Markdown from 'reveal.js/plugin/markdown';
-			import Highlight from 'reveal.js/plugin/highlight';
 			import Notes from 'reveal.js/plugin/notes';
 
 			const deck = new Reveal({
 				hash: true,
-				plugins: [Markdown, Highlight, Notes],
+				plugins: [Notes],
 			});
 
 			deck.initialize();
@@ -55,7 +53,7 @@ const renderedSlides = await Promise.all(
 		<style is:global>
 			.reveal .slides section {
 				text-align: left;
-				font-size: 0.75em;
+				font-size: 0.85em;
 			}
 
 			.reveal h1,

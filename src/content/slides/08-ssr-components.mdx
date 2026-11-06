@@ -5,28 +5,16 @@ transition: slide
 background: '#111827'
 ---
 
-## Radical Simplicity: SSR `.astro` Components
+## Simplicity: `.astro` Components
 
-Type-safe `Astro.props`, server code fence (`---`), HTML + CSS — **zero client JS**:
-
-```astro
----
-// src/components/Polaroid.astro
-import type { HTMLAttributes } from 'astro/types';
-
-export type Props = HTMLAttributes<'img'> & { caption: string };
-const { alt, caption, class: className, src, ...props } = Astro.props;
----
-
-<figure class:list={['polaroid', className]}>
-  <img alt={alt || caption} {src} {...props} />
-  <figcaption>{caption}</figcaption>
-</figure>
-```
+- **Server Code Fence (`---`)** — Runs only on the server, never in the browser
+- **HTML Template** — JSX-like expressions with standard HTML
+- **Type-Safe `Astro.props`** — Built-in TypeScript
+- **Zero Client Footprint** — Pure HTML + CSS output
 
 <aside class="notes">
-  - Look at `src/components/Polaroid.astro`:
-    - Type-safe `Props` extending standard `HTMLAttributes<'img'>`.
-    - Built-in `class:list` helper (like `clsx` / `classnames` built right in!).
-    - Attribute shorthand `{src}` and prop spreading `{...props}` work out of the box.
+  - Show in IDE:
+    - `src/components/Polaroid.astro` (typed `Props`, `class:list`, scoped `<style>`)
+    - `src/components/Navigation.astro`
+    - `src/pages/components.astro` (even React & Vue components render as zero-JS HTML by default!)
 </aside>
