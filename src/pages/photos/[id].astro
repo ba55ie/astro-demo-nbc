@@ -1,7 +1,7 @@
 ---
-import DefaultLayout from '../../layouts/DefaultLayout.astro';
-import Polaroid from '../../components/Polaroid.astro';
-import { GET } from '../api/photos';
+import DefaultLayout from '@/layouts/DefaultLayout.astro';
+import Polaroid from '@/components/Polaroid.astro';
+import { GET } from '@/pages/api/photos.ts';
 
 const { id } = Astro.params;
 
