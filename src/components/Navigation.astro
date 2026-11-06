@@ -6,6 +6,12 @@ const items = [
 	{ title: '🧩 Components', path: '/components' },
 	{ title: '🏝️ Islands', path: '/islands' },
 ];
+
+const isCurrentPage = (path: string) =>
+	path === '/'
+		? Astro.url.pathname === '/'
+		: Astro.url.pathname === path ||
+			Astro.url.pathname.startsWith(`${path}/`);
 ---
 
 <nav aria-label="Main navigation">
@@ -14,7 +20,7 @@ const items = [
 			<li>
 				<a
 					href={path}
-					aria-current={Astro.url.pathname === path ? 'page' : false}
+					aria-current={isCurrentPage(path) ? 'page' : false}
 				>
 					{title}
 				</a>
