@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import { useStore as getStore } from '@nanostores/vue';
+import { $count, decrement, increment } from './store.ts';
 
-const props = withDefaults(
-	defineProps<{
-		count?: number;
-	}>(),
-	{
-		count: 0,
-	},
-);
+const props = defineProps<{
+	count?: number;
+}>();
 
-const count = ref(props.count);
+const count = getStore($count);
 const isInteractive = ref(false);
 
 onMounted(() => {
+	if (props.count !== undefined) {
+		$count.set(props.count);
+	}
+
 	isInteractive.value = true;
 });
 </script>
@@ -29,18 +30,18 @@ onMounted(() => {
 				type="button"
 				aria-label="Decrement"
 				:disabled="!isInteractive"
-				@click="count--"
+				@click="decrement"
 			>
 				−
 			</button>
 
-			<output>{{ count }}</output>
+			<output>{{ isInteractive ? count : (props.count ?? count) }}</output>
 
 			<button
 				type="button"
 				aria-label="Increment"
 				:disabled="!isInteractive"
-				@click="count++"
+				@click="increment"
 			>
 				+
 			</button>

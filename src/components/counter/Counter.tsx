@@ -1,16 +1,22 @@
 import { useEffect, useState } from 'react';
+import { useStore } from '@nanostores/react';
+import { $count, decrement, increment } from './store.ts';
 
 export interface Props {
 	count?: number;
 }
 
 export default function ReactCounter(props: Props) {
-	const [count, setCount] = useState(props.count ?? 0);
+	const count = useStore($count);
 	const [isInteractive, setIsInteractive] = useState(false);
 
 	useEffect(() => {
+		if (props.count !== undefined) {
+			$count.set(props.count);
+		}
+
 		setIsInteractive(true);
-	}, []);
+	}, [props.count]);
 
 	return (
 		<article>
@@ -29,20 +35,20 @@ export default function ReactCounter(props: Props) {
 				<button
 					type="button"
 					disabled={!isInteractive}
-					onClick={() => setCount((c) => c - 1)}
+					onClick={decrement}
 					aria-label="Decrement"
 				>
 					−
 				</button>
 
 				<output style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
-					{count}
+					{isInteractive ? count : (props.count ?? count)}
 				</output>
 
 				<button
 					type="button"
 					disabled={!isInteractive}
-					onClick={() => setCount((c) => c + 1)}
+					onClick={increment}
 					aria-label="Increment"
 				>
 					+
