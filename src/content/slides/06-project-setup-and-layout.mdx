@@ -1,0 +1,30 @@
+---
+order: 6
+title: Project Setup & Layout
+transition: slide
+background: '#111827'
+---
+
+## Project Setup, Layout & TypeScript
+
+Get started in seconds with `npm create astro@latest` — with built-in **TypeScript** support:
+
+```text
+├── public/             # Unprocessed static assets (fonts, icons, favicon)
+├── src/
+│   ├── components/     # Reusable .astro, .tsx (React), .vue components
+│   ├── layouts/        # Page shells (e.g. DefaultLayout.astro)
+│   ├── pages/          # File-based routes & API endpoints
+│   ├── content/        # Content collections (MD / MDX / JSON)
+│   └── content.config.ts
+├── astro.config.ts     # Integrations (React, Vue, MDX), SSR adapter
+└── tsconfig.json       # Strict TypeScript + path aliases (@/*)
+```
+
+<aside class="notes">
+  - Project structure is clean and predictable:
+    - `public/` holds raw static assets that need no processing.
+    - `src/` holds your components, layouts, pages, styles, and content collections.
+    - `astro.config.ts` (or `.mjs`) configures integrations and your SSR adapter (like `@astrojs/node`).
+  - TypeScript is supported out of the box (`astro/tsconfigs/strictest`).
+</aside>

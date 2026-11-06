@@ -1,0 +1,21 @@
+---
+order: 4
+title: Benefits of Server-Side Rendering
+transition: convex
+background: '#0f172a'
+---
+
+## Why Server-Side Rendering (SSR) Wins
+
+Moving rendering from the browser back to the server (`output: 'server'`):
+
+- **Instant First Contentful Paint (FCP)** — Browsers parse HTML & CSS natively at blazing speed
+- **No `useEffect` Waterfalls** — Fetch data close to your backend before sending HTML
+- **Superior SEO & Social Previews** — Complete HTML arrives on the very first request
+- **Smaller Bundles & Security** — Keep secrets, tokens, and heavy dependencies on the server
+- **Resilience** — Core content works even before (or without) JavaScript executing
+
+<aside class="notes">
+  - In SPAs, we spend huge effort working around problems caused by client-side rendering: loading skeletons, `useEffect` race conditions, and bundle splitting.
+  - Server-side rendering eliminates those headaches while delivering faster Time to Interactive on mobile devices.
+</aside>

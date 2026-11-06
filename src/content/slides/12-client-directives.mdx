@@ -1,0 +1,34 @@
+---
+order: 12
+title: Client Directives
+transition: slide
+background: '#1e1b4b'
+---
+
+## Selective Hydration (`client:*`)
+
+You control **if** and **when** a component hydrates on the client:
+
+```astro
+---
+import ReactCounter from '@/components/counter/Counter.tsx';
+const count = 1337; // Data from backend!
+---
+
+<!-- 1. SSR HTML only (0 KB JS shipped — buttons stay disabled) -->
+<ReactCounter count={count} />
+
+<!-- 2. Hydrate immediately on page load -->
+<ReactCounter client:load count={count} />
+
+<!-- 3. Hydrate when browser main thread is idle -->
+<ReactCounter client:idle count={count} />
+
+<!-- 4. Hydrate only when scrolled into viewport -->
+<ReactCounter client:visible count={count} />
+```
+
+<aside class="notes">
+  - Compare `/components` (where `<ReactCounter />` has no directive and ships zero JS) with `/islands` (where `client:load` hydrates the component on the client).
+  - You can also mix React, Vue, and native Web Components (`<total-clicks>`) on the exact same page!
+</aside>

@@ -1,0 +1,24 @@
+---
+order: 10
+title: Data Fetching
+transition: convex
+background: '#0f172a'
+---
+
+## Data Fetching: API Routes, Actions & Loaders
+
+1. **Top-Level `await fetch()`** — Fetch directly in any `.astro` component frontmatter
+2. **API Routes (`APIRoute`)** — Server endpoints in `src/pages/api/` returning standard `Response`:
+   ```ts
+   // src/pages/api/photos.ts
+   export const GET: APIRoute = async () => fetch('https://.../photos');
+   ```
+3. **Astro Actions (`astro:actions`)** — Type-safe backend functions & form mutations callable from client or server with Zod validation
+4. **Content Collection Loaders** — Load read-only structured content (`glob()`, API loaders) with Zod schemas in `src/content.config.ts` (powers these slides!)
+
+<aside class="notes">
+  - Notice the distinction between the three data patterns in Astro:
+    - **API Routes** (`src/pages/api/photos.ts`) give you standard HTTP endpoints (`GET`, `POST`, etc.) that you can also call directly on the server via `await GET(Astro)`.
+    - **Actions** provide RPC-like, Zod-validated server mutations from client components or HTML forms.
+    - **Loaders** (`src/content.config.ts`) are strictly for loading & validating read-only content collections (no updates/mutations).
+</aside>

@@ -1,0 +1,34 @@
+---
+order: 13
+title: Live Islands Demo
+transition: concave
+background: '#0f172a'
+---
+
+import ReactCounter from '@/components/counter/Counter.tsx';
+import VueCounter from '@/components/counter/Counter.vue';
+
+## Live Islands Inside This Slide!
+
+Hydrated **React** and **Vue** islands seeded with server props & sharing state via `nanostores`:
+
+<div class="island-demo-grid">
+  <div class="island-card">
+    <small>SSR Only (No Directive — 0 KB JS)</small>
+    <ReactCounter count={20} />
+  </div>
+  <div class="island-card">
+    <small>Hydrated React (<code>client:visible</code>)</small>
+    <ReactCounter client:visible count={1337} />
+  </div>
+  <div class="island-card">
+    <small>Hydrated Vue (<code>client:visible</code>)</small>
+    <VueCounter client:visible count={1337} />
+  </div>
+</div>
+
+<aside class="notes">
+  - Click the `+` and `−` buttons right inside this slide!
+  - Card 1 is SSR-only (`<ReactCounter count={20} />`) — pure HTML & CSS, no JS attached.
+  - Cards 2 & 3 are hydrated React and Vue islands receiving initial server data (`count={1337}`) and syncing state live across frameworks!
+</aside>

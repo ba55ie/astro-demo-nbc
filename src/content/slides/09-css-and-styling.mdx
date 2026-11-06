@@ -1,0 +1,33 @@
+---
+order: 9
+title: CSS & Styling in Astro
+transition: slide
+background: '#1e1b4b'
+---
+
+## CSS in Astro: Scoped by Default
+
+- **Import CSS files** directly in any layout, page, or component (`import 'reveal.js/reveal.css'`)
+- **Component `<style>` tags** are **automatically scoped** (compiled with `data-astro-cid-*` — zero runtime cost!)
+- **Global escape hatches** when you need them:
+
+```astro
+<style>
+  /* 1. Scoped to this component only */
+  nav { display: flex; gap: 0.5rem; }
+
+  /* 2. Target a specific child globally */
+  nav :global(a.active) { font-weight: bold; }
+</style>
+
+<!-- 3. Or make an entire style block global -->
+<style is:global>
+  body { margin: 0; }
+</style>
+```
+
+<aside class="notes">
+  - No CSS-in-JS runtime tax, no CSS Modules boilerplate files needed!
+  - You write standard modern CSS (including native CSS nesting!) inside `<style>`, and Astro scopes it to that component at build time.
+  - When styling third-party libraries (like Reveal.js or Markdown content), use `:global()` or `<style is:global>`.
+</aside>

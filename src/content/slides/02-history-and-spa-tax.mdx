@@ -1,0 +1,23 @@
+---
+order: 2
+title: History of the Web & The SPA Tax
+transition: slide
+background: '#1e1b4b'
+---
+
+## Perspective: How the Web Actually Renders
+
+- **70–80% of the web** is still rendered **server-side**
+- StatCounter data & recent PHP stats reminded us: **~60% of the web runs on PHP** alone!
+- Yet in modern frontend, we defaulted to building **everything as a React SPA**:
+  - Ship a full JS runtime just to render static text & layouts
+  - Client-side waterfalls (`useEffect` → `fetch` → spinner)
+  - Expensive full-page hydration on users' devices
+
+> "In Astro, HTML is the default output rather than a side effect, and JavaScript is optional rather than assumed." — *Adam Lowe*
+
+<aside class="notes">
+  - Despite the frontend bubble, 70-80% of the web is rendered server-side (PHP alone still accounts for ~60% of websites according to StatCounter).
+  - For content-heavy or hybrid websites, shipping a full Single Page Application is an expensive detour.
+  - Adam Lowe frames Astro well: instead of making HTML a side effect of executing JavaScript, make HTML the default again.
+</aside>

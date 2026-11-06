@@ -1,0 +1,20 @@
+---
+order: 11
+title: Astro Islands Architecture
+transition: zoom
+background: '#111827'
+---
+
+## Astro Islands Architecture
+
+Interactive **Islands** floating in a sea of server-rendered HTML:
+
+- **SSR Components First** — Header, layout, text, and images ship **0 KB of JS**
+- **Isolated Interactive Islands** — Hydrate only the specific React or Vue widgets that need client state
+- **Backend Data → Client Island** — Fetch data on the server and pass it as standard props (`<ReactCounter client:load count={count} />`)
+- **Parallel Hydration** — Heavy islands never block lighter islands
+
+<aside class="notes">
+  - Reference: https://docs.astro.build/en/concepts/islands/ & `/components` vs `/islands` in our demo app!
+  - Notice how seamless passing server data to an island is: you compute or fetch `count` in the `.astro` server frontmatter and pass it right into `<ReactCounter client:load count={count} />`.
+</aside>

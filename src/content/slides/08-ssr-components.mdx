@@ -1,0 +1,32 @@
+---
+order: 8
+title: SSR Components
+transition: slide
+background: '#111827'
+---
+
+## Radical Simplicity: SSR `.astro` Components
+
+Type-safe `Astro.props`, server code fence (`---`), HTML + CSS — **zero client JS**:
+
+```astro
+---
+// src/components/Polaroid.astro
+import type { HTMLAttributes } from 'astro/types';
+
+export type Props = HTMLAttributes<'img'> & { caption: string };
+const { alt, caption, class: className, src, ...props } = Astro.props;
+---
+
+<figure class:list={['polaroid', className]}>
+  <img alt={alt || caption} {src} {...props} />
+  <figcaption>{caption}</figcaption>
+</figure>
+```
+
+<aside class="notes">
+  - Look at `src/components/Polaroid.astro`:
+    - Type-safe `Props` extending standard `HTMLAttributes<'img'>`.
+    - Built-in `class:list` helper (like `clsx` / `classnames` built right in!).
+    - Attribute shorthand `{src}` and prop spreading `{...props}` work out of the box.
+</aside>
