@@ -11,7 +11,7 @@ const count = getStore($count);
 const isInteractive = ref(false);
 
 onMounted(() => {
-	if (props.count !== undefined) {
+	if (props.count !== undefined && $count.get() !== props.count) {
 		$count.set(props.count);
 	}
 

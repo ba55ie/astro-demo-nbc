@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
 
-withDefaults(
+const props = withDefaults(
 	defineProps<{
 		icon?: string;
+		timestamp: number;
 	}>(),
 	{
-		icon: '⚠️',
+		icon: '⚠️'
 	},
 );
 
-const date = ref(new Date());
+
+
+const date = ref(new Date(Number(props.timestamp)));
 
 let timer: ReturnType<typeof setInterval>;
 

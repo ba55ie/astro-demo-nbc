@@ -17,7 +17,7 @@ const count = 20;
 			<p>Server-Side Rendered Only (Zero JS)</p>
 		</header>
 
-		<VueAlert>
+		<VueAlert timestamp={Date.now()}>
 			Rendered to static HTML on the server. No JavaScript is sent to the
 			browser, so clicking the buttons has no effect.
 		</VueAlert>

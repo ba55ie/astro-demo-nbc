@@ -11,12 +11,12 @@ export default function ReactCounter(props: Props) {
 	const [isInteractive, setIsInteractive] = useState(false);
 
 	useEffect(() => {
-		if (props.count !== undefined) {
+		if (props.count !== undefined && $count.get() !== props.count) {
 			$count.set(props.count);
 		}
 
 		setIsInteractive(true);
-	}, [props.count]);
+	}, []);
 
 	return (
 		<article>
