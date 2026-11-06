@@ -7,7 +7,7 @@ export const GET: APIRoute = async () => {
 		return res;
 	}
 
-	const photos = await res.json();
+	const photos: Photo[] = await res.json();
 
 	return new Response(JSON.stringify(photos), {
 		headers: { 'Content-Type': res.headers.get('content-type')! },

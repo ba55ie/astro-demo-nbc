@@ -1,9 +1,9 @@
 ---
-import DefaultLayout from '../layouts/DefaultLayout.astro';
-import Pagination from '../components/Pagination.astro';
-import Polaroid from '../components/Polaroid.astro';
+import DefaultLayout from '../../layouts/DefaultLayout.astro';
+import Pagination from '../../components/Pagination.astro';
+import Polaroid from '../../components/Polaroid.astro';
 
-import { GET } from './api/photos.ts';
+import { GET } from '../api/photos.ts';
 
 const title = 'Photos';
 
@@ -11,7 +11,7 @@ const start = Number(Astro.url.searchParams.get('start') ?? 0);
 const size = Number(Astro.url.searchParams.get('size') ?? 20);
 
 const response = await GET(Astro);
-const photos = await response.json();
+const photos: Photo[] = await response.json();
 
 const LAZY_LOAD_AFTER = 8;
 ---
@@ -27,7 +27,7 @@ const LAZY_LOAD_AFTER = 8;
 		</header>
 
 		<ol start={start + 1}>
-			{photos.slice(start, start + size).map((photo, i) => (
+			{photos.slice(start, start + size).map((photo: Photo, i: number) => (
 				<li style={{ '--random': Math.random() }}>
 					<a
 						href={`/photos/${photo.id}`}

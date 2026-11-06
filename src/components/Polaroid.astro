@@ -5,7 +5,7 @@ export type Props = HTMLAttributes<'img'> & {
 	caption: string;
 };
 
-const { alt, caption, class: className = '', src, ...props } = Astro.props;
+const { alt, caption, class: className, src, ...props } = Astro.props;
 ---
 
 <figure class:list={['polariod', className]}>

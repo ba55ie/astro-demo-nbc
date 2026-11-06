@@ -6,8 +6,8 @@ import { GET } from '../api/photos';
 const { id } = Astro.params;
 
 const response = await GET(Astro);
-const photos = await response.json();
-const photo = photos.find((item: { id: number }) => String(item.id) === id);
+const photos: Photo[] = await response.json();
+const photo = photos.find((item) => String(item.id) === id);
 
 if (!photo) {
 	return Astro.rewrite('/404');
