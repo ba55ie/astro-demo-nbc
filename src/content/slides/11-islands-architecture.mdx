@@ -1,0 +1,17 @@
+---
+order: 11
+title: Astro Islands Architecture
+---
+
+## Astro Islands Architecture
+
+- **A Sea of Static HTML** — Most of your page ships **0 KB of JS**
+- **Islands of Interactivity** — Hydrate only interactive widgets in isolation
+- **Server Data → Client Island** — Pass backend data directly via props
+- **Multi-Framework** — Mix React, Solid, Vue, etc. on one page
+
+<aside class="notes">
+  - Reference: https://docs.astro.build/en/concepts/islands/ - Show in IDE:
+  compare `src/pages/components.astro` (SSR only) vs `src/pages/islands.astro`
+  (hydrated islands receiving `count` from the server).
+</aside>

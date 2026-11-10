@@ -1,0 +1,17 @@
+---
+order: 12
+title: Client Directives
+---
+
+## Selective Hydration (`client:*` directives)
+
+- **No directive** — Server-rendered HTML only (**0 KB JS**)
+- **`client:load`** — Hydrate immediately on page load
+- **`client:idle`** — Hydrate once the browser main thread is free
+- **`client:visible`** — Hydrate only when scrolled into view
+
+<aside class="notes">
+  - Show in IDE: `src/pages/islands.astro` and
+  `src/components/counter/Counter.tsx` + `Counter.vue` sharing state via
+  `src/components/counter/store.ts`.
+</aside>

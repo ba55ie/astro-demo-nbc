@@ -1,0 +1,16 @@
+---
+order: 4
+title: Benefits of Server-Side Rendering
+---
+
+## Benefits of Server-Side Rendering
+
+- **Instant Page Loads** — Browsers parse HTML & CSS natively
+- **No Fetching Waterfalls** — Fetch data on the server, not in `useEffect`
+- **A11TY and Resilience** — Complete HTML arrives on the first request ([using streaming](https://docs.astro.build/en/recipes/streaming-improve-page-performance/)!)
+- **Smaller Bundles & Security** — Keep secrets, state and heavy libs on the server
+
+<aside class="notes">
+  - Server-side rendering eliminates loading spinner waterfalls, `useEffect`
+  race conditions, and massive client bundles and `aria-live`.
+</aside>

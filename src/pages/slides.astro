@@ -5,7 +5,9 @@ import 'reveal.js/reset.css';
 import 'reveal.js/reveal.css';
 import 'reveal.js/theme/black.css';
 
-const slides = await getCollection('slides');
+const slides = (await getCollection('slides')).sort(
+	(a, b) => a.data.order - b.data.order,
+);
 
 const renderedSlides = await Promise.all(
 	slides.map(async (slide) => {
@@ -37,17 +39,47 @@ const renderedSlides = await Promise.all(
 		</div>
 
 		<script>
+			import JSConfetti from 'js-confetti';
 			import Reveal from 'reveal.js';
-			import Markdown from 'reveal.js/plugin/markdown';
-			import Highlight from 'reveal.js/plugin/highlight';
 			import Notes from 'reveal.js/plugin/notes';
 
 			const deck = new Reveal({
 				hash: true,
-				plugins: [Markdown, Highlight, Notes],
+				plugins: [Notes],
 			});
+
+			const jsConfetti = new JSConfetti();
+
+			const fireEnlightenmentConfetti = () => {
+				jsConfetti.addConfetti();
+				jsConfetti.addConfetti({
+					emojis: ['🚀', '🌅', '✨', '🧘', '🏝️', '🎉'],
+					emojiSize: 50,
+					confettiNumber: 30,
+				});
+			};
+
+			deck.on('slidechanged', (event) => {
+				const currentSlide = (event as unknown as { currentSlide?: HTMLElement })
+					.currentSlide;
+				if (currentSlide?.hasAttribute('data-confetti')) {
+					fireEnlightenmentConfetti();
+				}
+			});
+
+			document
+				.querySelectorAll<HTMLElement>('[data-confetti]')
+				.forEach((slide) => {
+					slide.addEventListener('click', fireEnlightenmentConfetti);
+				});
 
 			deck.initialize();
 		</script>
+
+		<style is:global>
+			.reveal section[data-confetti] h1 {
+				text-shadow: 0 0 32px rgba(250, 204, 21, 0.7);
+			}
+		</style>
 	</body>
 </html>

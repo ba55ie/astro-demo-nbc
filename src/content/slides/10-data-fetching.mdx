@@ -1,0 +1,18 @@
+---
+order: 10
+title: Data Fetching
+---
+
+## Data in Astro
+
+- **Top-Level `await fetch()`** — Directly inside component frontmatter
+- **API Routes (`APIRoute`)** — Server endpoints returning standard `Response`
+- **Actions (`astro:actions`)** — Type-safe backend mutations & form handling (Remix/React Actions)
+- **Content Loaders** — Read-only content collections validated with Zod
+
+<aside class="notes">
+  - Show in IDE: - Frontmatter `fetch()` in `src/pages/posts/index.astro` - API
+  route in `src/pages/api/photos.ts` and calling `await GET(Astro)` in
+  `src/pages/photos/index.astro` - Content Loader with `glob()` and Zod schema
+  in `src/content.config.ts`
+</aside>

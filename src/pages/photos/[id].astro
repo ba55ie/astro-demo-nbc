@@ -17,7 +17,7 @@ if (!photo) {
 <DefaultLayout title={photo.title}>
 	<section
 		class="lightbox"
-		style={{ 'view-transition-name': `photo-${photo.id}` }}
+		style={{ '--transition-name': `photo-${photo.id}` }}
 	>
 		<header>
 			<h1>Photo #{photo.id}</h1>
@@ -88,6 +88,8 @@ if (!photo) {
 
 		.polaroid--full {
 			min-inline-size: 40vw;
+
+			view-transition-name: var(--transition-name);
 
 			&:is(:hover, :focus-visible &) {
 				transform: none;

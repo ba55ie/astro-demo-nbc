@@ -3,7 +3,7 @@ import { actions, isInputError } from 'astro:actions';
 
 import DefaultLayout from '@/layouts/DefaultLayout.astro';
 
-const title = 'Form + Server Action';
+const title = 'Form + Server Action + Client router';
 
 const result = Astro.getActionResult(actions.user);
 const inputErrors = isInputError(result?.error) ? result.error.fields : {};

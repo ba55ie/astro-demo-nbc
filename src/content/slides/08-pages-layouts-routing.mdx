@@ -1,0 +1,17 @@
+---
+order: 8
+title: Pages, Layouts & Routing
+---
+
+## Pages, Layouts & Routing
+
+- **File-Based Routing** — Files in `src/pages/` become routes automatically
+- **Dynamic Routes** — `[id].astro` becomes `Astro.params.id`
+- **Layouts** — Reusable page shells using `<slot />`
+- **Server globals** — `Astro.url`, `Astro.redirect('/404')`, etc.
+
+<aside class="notes">
+  - Pages and layouts are also Astro Components. - Show in IDE: -
+  `src/layouts/DefaultLayout.astro` - `src/pages/posts/index.astro` and
+  `src/pages/posts/[id].astro` - `src/pages/photos/[id].astro`
+</aside>
