@@ -1,11 +1,14 @@
 ---
+import { ClientRouter } from 'astro:transitions';
+
 import Navigation from '@/components/Navigation.astro';
 
 export type Props = {
 	title: string;
+	transition?: boolean;
 };
 
-const { title } = Astro.props;
+const { title, transition = false } = Astro.props;
 ---
 
 <html lang="en">
@@ -22,6 +25,8 @@ const { title } = Astro.props;
 		/>
 
 		<title>{title} | Int(r)o Astro</title>
+
+		{transition && <ClientRouter />}
 	</head>
 	<body>
 		<header>

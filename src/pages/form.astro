@@ -1,0 +1,70 @@
+---
+import { actions, isInputError } from 'astro:actions';
+
+import DefaultLayout from '@/layouts/DefaultLayout.astro';
+
+const title = 'Form + Server Action';
+
+const result = Astro.getActionResult(actions.user);
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+---
+
+<DefaultLayout title={title} transition>
+	{result?.data && !result.error ? (
+		<div class="success">
+			<h1>Success</h1>
+
+			<p>Saved user "{result.data.name}".</p>
+		</div>
+	) : (
+		<form method="POST" autocomplete="off" action={actions.user}>
+			<legend>
+				<h1>{title}</h1>
+			</legend>
+
+			<label>
+				<span>Name</span>
+				<input name="name" required transition:persist />
+
+				{inputErrors.name && (
+					<span class="error">{inputErrors.name.join(',')}</span>
+				)}
+			</label>
+
+			<label>
+				<span>Email</span>
+				<input name="email" type="email" required transition:persist />
+			</label>
+
+			<label>
+				<span>Your age</span>
+				<input name="age" type="number" required transition:persist />
+
+				{inputErrors.age && (
+					<span class="error">{inputErrors.age.join(',')}</span>
+				)}
+			</label>
+
+			<button type="submit">Send</button>
+		</form>
+	)}
+</DefaultLayout>
+
+<style>
+	label:has(:required) {
+		position: relative;
+
+		span::after {
+			content: ' *';
+			color: darkred;
+		}
+	}
+
+	.success {
+		color: darkgreen;
+	}
+
+	.error {
+		color: darkred;
+	}
+</style>

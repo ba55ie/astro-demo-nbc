@@ -3,6 +3,7 @@ const items = [
 	{ title: '🏠 Home', path: '/' },
 	{ title: '📃 Posts', path: '/posts' },
 	{ title: '📷 Photos', path: '/photos' },
+	{ title: '📝 Form', path: '/form' },
 	{ title: '🧩 Components', path: '/components' },
 	{ title: '🏝️ Islands', path: '/islands' },
 ];
@@ -10,18 +11,14 @@ const items = [
 const isCurrentPage = (path: string) =>
 	path === '/'
 		? Astro.url.pathname === '/'
-		: Astro.url.pathname === path ||
-			Astro.url.pathname.startsWith(`${path}/`);
+		: Astro.url.pathname === path || Astro.url.pathname.startsWith(`${path}/`);
 ---
 
 <nav aria-label="Main navigation">
 	<ul>
 		{items.map(({ title, path }) => (
 			<li>
-				<a
-					href={path}
-					aria-current={isCurrentPage(path) ? 'page' : false}
-				>
+				<a href={path} aria-current={isCurrentPage(path) ? 'page' : false}>
 					{title}
 				</a>
 			</li>
