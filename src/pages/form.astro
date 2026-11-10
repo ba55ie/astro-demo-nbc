@@ -48,13 +48,37 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 			<button type="submit">Send</button>
 		</form>
 	)}
+
+	<div slot="sidebar">
+		<h2>React 19</h2>
+		<p>
+			Astro.js <code>Actions</code> also work with React 19's{' '}
+			<a
+				href="https://react.dev/reference/react/useActionState"
+				target="_blank"
+			>
+				useActionState
+			</a>
+			.
+		</p>
+		<p>
+			See the{' '}
+			<a
+				href="https://docs.astro.build/en/guides/integrations-guide/react/#withstate"
+				target="_blank"
+			>
+				<code>@astro/react</code> docs
+			</a>
+			.
+		</p>
+	</div>
 </DefaultLayout>
 
 <style>
 	label:has(:required) {
 		position: relative;
 
-		span::after {
+		span:not(.error)::after {
 			content: ' *';
 			color: darkred;
 		}

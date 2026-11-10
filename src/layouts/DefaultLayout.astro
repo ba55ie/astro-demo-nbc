@@ -45,7 +45,6 @@ const { title, transition = false } = Astro.props;
 
 			<aside>
 				{/* Named slot for secondary content  */}
-
 				<slot name="sidebar" />
 			</aside>
 		</main>
@@ -59,7 +58,10 @@ const { title, transition = false } = Astro.props;
 
 	main {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) min-content;
-		gap: 2rem;
+		grid-template-columns: minmax(0, 1fr) fit-content(25%);
+
+		&:has(aside:not(:empty)) {
+			gap: 2rem;
+		}
 	}
 </style>
