@@ -8,6 +8,8 @@ export type Props = {
 	transition?: boolean;
 };
 
+const SITE_NAME = 'Int(r)o Astro 🚀';
+
 const { title, transition = false } = Astro.props;
 ---
 
@@ -24,13 +26,13 @@ const { title, transition = false } = Astro.props;
 			href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css"
 		/>
 
-		<title>{title} | Int(r)o Astro</title>
+		<title>{title} | {SITE_NAME}</title>
 
 		{transition && <ClientRouter />}
 	</head>
 	<body>
 		<header>
-			<h1>Int(r)o Astro 🚀</h1>
+			<h1>{SITE_NAME}</h1>
 
 			<Navigation />
 		</header>
@@ -38,8 +40,14 @@ const { title, transition = false } = Astro.props;
 		<hr />
 
 		<main>
-			<!-- Main content will go in here -->
+			{/* Main content will go in here */}
 			<slot />
+
+			<aside>
+				{/* Named slot for secondary content  */}
+
+				<slot name="sidebar" />
+			</aside>
 		</main>
 	</body>
 </html>
@@ -47,5 +55,11 @@ const { title, transition = false } = Astro.props;
 <style>
 	@view-transition {
 		navigation: auto;
+	}
+
+	main {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) min-content;
+		gap: 2rem;
 	}
 </style>
