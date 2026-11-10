@@ -57,10 +57,9 @@ const { title, transition = false } = Astro.props;
 	}
 
 	main {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr) fit-content(25%);
-
 		&:has(aside:not(:empty)) {
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) fit-content(25%);
 			gap: 2rem;
 		}
 	}
