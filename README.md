@@ -2,6 +2,13 @@
 
 A demo application with [reveal.js](https://revealjs.com/) slides build with [Astro](https://astro.build/).
 
+## 🛠️ Getting started
+
+1.  Clone the project.
+1.  Install the dependencies with `npm install`.
+1.  Start the dev server with `npm run dev`.
+1.  Open de [site](http://localhost:5000/) or [slides](http://localhost:5000/slides) and start tinkering.
+
 ## 🚀 Project Structure
 
 Inside of this Astro project, you'll see the following folders and files:
